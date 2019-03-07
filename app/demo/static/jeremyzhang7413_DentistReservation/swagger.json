@@ -1,0 +1,170 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "book an appointment with a dentist.",
+    "version": "1.0.0",
+    "title": "Dentist Reservation"
+  },
+  "basePath": "/jeremyzhang7413/DentistReservation",
+  "paths": {
+    "/timeslots": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "Gets the available time slots",
+        "description": "Returns all available time slots.",
+        "operationId": "getTimeslots",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful get",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/timeslot"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "creates a timeslot",
+        "operationId": "timeslot",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "new timeslot for client",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/timeslot"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful post",
+            "schema": {
+              "$ref": "#/definitions/timeslot"
+            }
+          },
+          "400": {
+            "description": "Invalid post"
+          }
+        }
+      }
+    },
+    "/timeslots/{id}/reserve": {
+      "get": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "Books an appointment",
+        "operationId": "bookTime",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful book",
+            "schema": {
+              "$ref": "#/definitions/timeslot"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Appointment"
+        ],
+        "summary": "Books an appointment",
+        "operationId": "bookaTime",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "new timeslot for client",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/timeslot"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful book",
+            "schema": {
+              "$ref": "#/definitions/timeslot"
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied"
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "timeslot": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "data": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "complete": {
+          "type": "boolean",
+          "default": false
+        }
+      },
+      "xml": {
+        "name": "timeslot"
+      }
+    }
+  }
+}
